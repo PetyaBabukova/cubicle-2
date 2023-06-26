@@ -1,0 +1,16 @@
+[
+    {
+        "id": "2eruzpgd4ljcy1tkx",
+        "name": "Sipmle",
+        "description": "Simple Cube",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Scramble.svg/640px-Scramble.svg.png",
+        "level": "3"
+    },
+    {
+        "id": "2eruzpgugljcy3uvu",
+        "name": "Hard Cube",
+        "description": "Very Hard Cube",
+        "imageUrl": "https://i.ytimg.com/vi/MkR8CcSCoyg/maxresdefault.jpg",
+        "level": "5"
+    }
+]

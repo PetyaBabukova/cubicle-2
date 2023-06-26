@@ -1,21 +1,28 @@
 const { Router } = require('express');
+const productService = require('../services/productService')
+
 const router = Router();
 
 //Method notation sintaxys - thes could be written as anonimus func, arrow func, etc.
 router.get('/', (req, res) => {
-    res.render('home', {title: 'Browse'});
+    res.render('home', { title: 'Browse' });
 });
 
 router.get('/create', (req, res) => {
-    res.render('create', {title: 'Create'});
+    res.render('create', { title: 'Create' });
 });
 
-router.get('/details/:productId',(req, res)=>{
-    console.log(req.params.productId);
+router.post('/create', (req, res) => {
+    // TODO: Validations!!! 
 
-    res.render('details', {title: 'Product details'});
+    productService.create(req.body)
+    
+    res.redirect('/products');
+});
 
-})
+router.get('/details/:productId', (req, res) => {
+    res.render('details', { title: 'Product details' });
+});
 
 
 
