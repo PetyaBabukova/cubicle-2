@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const productService = require('../services/productService')
+const productHelpers = require('./helpers/productHelpers')
 
 const router = Router();
 
@@ -14,17 +15,22 @@ router.get('/create', (req, res) => {
     res.render('create', { title: 'Create' });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', productHelpers.validateProduct, (req, res) => {
     // TODO: Validations!!! 
 
     productService.create(req.body)
-    
+
     res.redirect('/products');
 });
 
 router.get('/details/:productId', (req, res) => {
-    res.render('details', { title: 'Product details' });
+    let product = productService.getOne(req.params.productId)
+    console.log(req.params.productId);
+    console.log(req.params);
+    res.render('details', { title: 'Product details', product });
 });
+
+
 
 
 
