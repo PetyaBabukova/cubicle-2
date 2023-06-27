@@ -13,7 +13,8 @@ function getOne(id) {
   
 };
 
-function create(data) {
+//TODO - make this with promise
+function create(data, callback) { //old fasion JS method with asinc callback
 
     let cube = new Cube(
         uniqid(),
@@ -25,15 +26,11 @@ function create(data) {
 
     productsData.push(cube)
     //fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productsData), (err) => { //absolute path is needed
-        fs.writeFile(path.join(__dirname , '../config/products.json'), JSON.stringify(productsData), (err) => { //using path
-        if (err) {
-            console.log(err);
-            return;
-        }
-
-    });
-
-
+        fs.writeFile(
+            path.join(__dirname , '../config/products.json'), //using path
+            JSON.stringify(productsData), 
+            callback
+            ); 
 
 };
 
