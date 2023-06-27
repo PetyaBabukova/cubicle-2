@@ -4,8 +4,22 @@ const fs = require('fs/promises');
 const productsData = require('../config/products.json');
 const path = require('path');
 
-function getAll() {
-    return productsData;
+function getAll(query) {
+    let result = productsData;
+
+    if (query.search) {
+        result = result.filter(x => x.name.toLowerCase().includes(query.search));
+    }
+    
+    if (query.from) {
+        result = result.filter(x => Number(x.level>=query.from))
+    }
+
+    if (query.to) {
+        result = result.filter(x => Number(x.level <=query.to))
+    }
+
+    return result;
 };
 
 function getOne(id) {
@@ -13,7 +27,6 @@ function getOne(id) {
 
 };
 
-//TODO - make this with promise
 function create(data, callback) { //old fasion JS method with async callback
 
     let cube = new Cube(

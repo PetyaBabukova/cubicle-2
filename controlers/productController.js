@@ -6,8 +6,8 @@ const router = Router();
 
 //Method notation sintaxys - thes could be written as anonimus func, arrow func, etc.
 router.get('/', (req, res) => {
-
-    let products = productService.getAll();
+    //console.log(req.query);
+    let products = productService.getAll(req.query);
     res.render('home', { title: 'Browse', products });
 });
 
