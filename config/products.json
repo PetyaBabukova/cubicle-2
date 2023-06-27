@@ -1,16 +1,1 @@
-[
-    {
-        "id": "2eruzpgd4ljcy1tkx",
-        "name": "Sipmle",
-        "description": "Simple Cube",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Scramble.svg/640px-Scramble.svg.png",
-        "level": "3"
-    },
-    {
-        "id": "2eruzpgugljcy3uvu",
-        "name": "Hard Cube",
-        "description": "Very Hard Cube",
-        "imageUrl": "https://i.ytimg.com/vi/MkR8CcSCoyg/maxresdefault.jpg",
-        "level": "5"
-    }
-]
+[{"id":"2eruzpgd4ljcy1tkx","name":"Sipmle","description":"Simple Cube","imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Scramble.svg/640px-Scramble.svg.png","level":"3"},{"id":"2eruzpgugljcy3uvu","name":"Hard Cube","description":"Very Hard Cube","imageUrl":"https://i.ytimg.com/vi/MkR8CcSCoyg/maxresdefault.jpg","level":"5"},{"id":"2eruzpa2olje1uhq3","name":"Plastic Cube","description":"Plastic cubes","imageUrl":"https://i.etsystatic.com/34841754/r/il/fcea83/4413408681/il_1080xN.4413408681_gkse.jpg","level":"3"}]
