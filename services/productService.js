@@ -1,6 +1,6 @@
 const uniqid = require('uniqid');
 const Cube = require('../models/Cube');
-const fs = require('fs');
+const fs = require('fs/promises');
 const productsData = require('../config/products.json');
 const path = require('path');
 
@@ -10,11 +10,11 @@ function getAll() {
 
 function getOne(id) {
     return productsData.find(x => x.id == id);
-  
+
 };
 
 //TODO - make this with promise
-function create(data, callback) { //old fasion JS method with asinc callback
+function create(data, callback) { //old fasion JS method with async callback
 
     let cube = new Cube(
         uniqid(),
@@ -26,11 +26,17 @@ function create(data, callback) { //old fasion JS method with asinc callback
 
     productsData.push(cube)
     //fs.writeFile(__dirname + '/../config/products.json', JSON.stringify(productsData), (err) => { //absolute path is needed
-        fs.writeFile(
-            path.join(__dirname , '../config/products.json'), //using path
-            JSON.stringify(productsData), 
-            callback
-            ); 
+    // // old fasion JS method with async callback example
+    // fs.writeFile(
+    //     path.join(__dirname, '../config/products.json'), //using path
+    //     JSON.stringify(productsData),
+    //     callback
+    // );
+
+return fs.writeFile(
+    path.join(__dirname, '../config/products.json'), //using path
+    JSON.stringify(productsData),
+)
 
 };
 

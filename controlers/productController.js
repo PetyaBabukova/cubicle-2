@@ -16,14 +16,18 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', productHelpers.validateProduct, (req, res) => {
-    // TODO: Validations!!! 
+    // // Callback example
+    // productService.create(req.body, (err)=>{
+    //     if(err){
+    //         return res.status(500).end()
+    //     }
+    //     res.redirect('/products');
+    // })
 
-    productService.create(req.body, (err)=>{
-        if(err){
-            return res.status(500).end()
-        }
-        res.redirect('/products');
-    })
+    // Promise example
+    productService.create(req.body)
+    .then(()=> res.redirect('/products'))
+    .catch(()=> res.status(500).end())
 
 });
 
