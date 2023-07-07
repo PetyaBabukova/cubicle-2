@@ -25,6 +25,7 @@ router.post('/create', productHelpers.validateProduct, (req, res) => {
     // })
 
     // Promise example
+    
     productService.create(req.body)
     .then(()=> res.redirect('/products'))
     .catch(()=> res.status(500).end())

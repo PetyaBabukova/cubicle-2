@@ -1,4 +1,6 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
 const config = require('./config/config');
 const { engine } = require('express-handlebars'); 
 
@@ -9,6 +11,8 @@ const app = express();
 
 expressConfig(app, engine);
 // require('./config/express')(app, engine); //this is the same like this above
+
+require('./config/mongoose')()
 
 app.use(routes);
 
