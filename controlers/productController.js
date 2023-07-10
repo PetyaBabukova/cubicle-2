@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const productService = require('../services/productService')
+const accessoryService = require('../services/accessoryService')
 const productHelpers = require('./helpers/productHelpers')
 
 const router = Router();
@@ -8,10 +9,10 @@ const router = Router();
 router.get('/', (req, res) => {
     //console.log(req.query);
     productService.getAll(req.query)
-    .then(products=>{ 
-        res.render('home', { title: 'Browse', products });
+        .then(products => {
+            res.render('home', { title: 'Browse', products });
         })
-    .catch(()=> res.status(500).end())
+        .catch(() => res.status(500).end())
 });
 
 router.get('/create', (req, res) => {
@@ -28,22 +29,33 @@ router.post('/create', productHelpers.validateProduct, (req, res) => {
     // })
 
     // Promise example
-    
+
     productService.create(req.body)
-    .then(()=> res.redirect('/products'))
-    .catch(()=> res.status(500).end())
+        .then(() => res.redirect('/products'))
+        .catch(() => res.status(500).end())
 
 });
 
 router.get('/details/:productId', async (req, res) => {
     let product = await productService.getOne(req.params.productId)
-    
+
     res.render('details', { title: 'Product details', product });
 });
 
+router.get('/:productId/attach', async (req, res) => {
 
+    let product = await productService.getOne(req.params.productId);
+    let accessories = await accessoryService.getAll();
 
+    //console.log(accessories);
 
+    res.render('attachAccessory', { product, accessories })
+});
 
+router.post('/:productId/attach', (req, res) => {
+    //console.log(req.body);
+    productService.attachAccessory(req.params.productId, req.body.accessory)
+    .then(() => res.redirect(`/products/details/${req.params.productId}`))
+})
 
 module.exports = router;
