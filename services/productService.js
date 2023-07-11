@@ -10,6 +10,8 @@ async function getAll(query) {
     
     if (query.from) {
         products = products.filter(x => Number(x.level) >= query.from);
+        //Cube.find({difficultyLevel: {$gt: query.from}});
+        //Cube.find().gt(query.from);
     }
     
     if (query.to) {
@@ -40,9 +42,16 @@ async function attachAccessory(productId, accessoryId) {
 
 }
 
+function getOneWithAccessories(id) {
+    return Cube.findById(id)
+    .populate('accessories')
+    .lean();
+}
+
 module.exports = {
     getAll,
     getOne,
+    getOneWithAccessories,
     create,
     attachAccessory,
 }

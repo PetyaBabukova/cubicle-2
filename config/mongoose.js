@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const config = require('./config');
 
 module.exports = ()=>{
-mongoose.connect('mongodb://localhost/cubicle', {useNewUrlParser: true, useUnifiedTopology: true, family: 4,  });
+mongoose.connect(config.DB_CONNECTION, {useNewUrlParser: true, useUnifiedTopology: true, family: 4,  });
 
 const db = mongoose.connection;
 db.on('error', () => {console.error('connection error: ')});
