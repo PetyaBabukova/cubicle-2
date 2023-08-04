@@ -1,20 +1,23 @@
 const { Router } = require('express');
 const authService = require('../services/authService');
 
+const isAuthenticated = require('../middlewares/isAuthenticated');
+const isGuest = require('../middlewares/isGuest');
+
 const {COOKIE_NAME} = require('../config/config')
 
 const router = Router();
 // const router = require('express').Router();
 
-router.get('/register', (req, res) => {
+router.get('/register', isGuest, (req, res) => {
     res.render('register');
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', isGuest, (req, res) => {
     res.render('login');
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', isGuest, async (req, res) => {
     const { username, password } = req.body;
 
     try {
@@ -31,7 +34,7 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', isGuest, async (req, res) => {
     //console.log(req.body);
 
     // Validate here - this is also an option. It`s good to be in middleware if we will use the same validation more than once
@@ -51,9 +54,12 @@ router.post('/register', async (req, res) => {
         res.render('register', { error })
     };
 
+});
 
-
-
+router.get('/logout', isAuthenticated, (req, res)=>{
+    res.clearCookie(COOKIE_NAME);
+    
+    res.redirect('/products');
 });
 
 module.exports = router;

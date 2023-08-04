@@ -36,10 +36,10 @@ const login = async ({ username, password }) => {
     let isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) throw { message: "Password does not match!" }
-    console.log(isMatch);
+    //console.log(isMatch);
 
     // Generate token
-    let token = jwt.sign({ _id: user._id }, SECRET);
+    let token = jwt.sign({ _id: user._id,  }, SECRET); //In the token we can put also username, roles, etc.
 
     return token;
 
