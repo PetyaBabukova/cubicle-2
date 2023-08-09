@@ -65,7 +65,6 @@ router.post('/:productId/attach', isAuthenticated, (req, res) => {
 router.get('/:productId/edit', isAuthenticated, (req, res) => {
     productService.getOne(req.params.productId)
         .then(product => {
-
             res.render('editCube', product);
 
         })
@@ -88,7 +87,7 @@ router.get('/:productId/delete', isAuthenticated, (req, res) => {
 
     productService.getOne(req.params.productId)
         .then(product => {
-
+            
             if (req.user._id.toString() !== product.creator.toString()) {
                 res.redirect('/products')
 
@@ -99,18 +98,42 @@ router.get('/:productId/delete', isAuthenticated, (req, res) => {
         });
 });
 
+//The code from Ivcho
 router.post('/:productId/delete', isAuthenticated, (req, res) => {
     //TODO: Validate
-    productService.deleteOne(req.params.productId)
+    productService.getOne(req.params.productId)
         .then(product => {
-            if (product._id !== req.user._id) {
+             if (product.creator._id == req.user._id) {
+                return productService.deleteOne(req.params.productId)
+                .then(() => res.redirect('/products'))
+            } else{
                 return res.redirect('/products')
             }
-
-            return productService.deleteOne(req.params.productId)
+            
         })
-        .then(response => res.redirect('/products'))
-
+        
 });
+
+// // The code from GPT - doesn`t work correctly
+// router.post('/:productId/delete', isAuthenticated, (req, res) => {
+//     //TODO: Validate
+//     productService.getOne(req.params.productId)
+//         .then(product => {
+//             if (product._id.toString() !== req.user._id.toString()) {
+//                 res.redirect('/products');
+//             } else {
+//                 return productService.deleteOne(req.params.productId)
+//                     .then(() => res.redirect('/products'))
+//                     .catch(err => {
+//                         console.log(err);
+//                         res.status(500).send('An error occurred while trying to delete the product');
+//                     });
+//             }
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).send('An error occurred while trying to get the product');
+//         });
+// });
 
 module.exports = router;
