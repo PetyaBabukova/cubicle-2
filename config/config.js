@@ -1,7 +1,7 @@
 const config = {
     development : {
         PORT : 5000,
-        DB_CONNECTION: 'mongodb://localhost/cubicle',
+        DB_CONNECTION: 'mongodb://localhost:27017/cubicle',
         SALT_ROUNDS: 10,
         SECRET: 'petrovich',
         COOKIE_NAME: 'USER_SESSION'

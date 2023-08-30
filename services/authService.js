@@ -16,13 +16,14 @@ const register = async ({ username, password }) => {
 
     // Don`t need try/catch here, because we cach error in the controller
     //console.log(SALT_ROUNDS);
-    let salt = await bcrypt.genSalt(SALT_ROUNDS)
-    let hash = await bcrypt.hash(password, salt)
+    // let salt = await bcrypt.genSalt(SALT_ROUNDS) //We moved this in the User model // This is done in User Schema
+    // let hash = await bcrypt.hash(password, salt) // This is done in User Schema
 
-    const user = new User({ username, password: hash });
+    // const user = new User({ username, password: hash }); // This is done in User Schema
+    const user = new User({ username, password}); //In way we use Mongoose validation (in the schema). The password is converted to hash in the User Schema.
     // console.log(user);
 
-    return await user.save(); //await is not mandatory here
+    return user.save(); //await is not mandatory here
 
 };
 
