@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const { SALT_ROUNDS, SECRET } = require('../config/config');
 
+const ENGLISH_ALPHNUMERIC_PATTERN = /^[a-zA-Z0-9]+$/;
+
 
 const userSchema = new mongoose.Schema({
     id: mongoose.Types.ObjectId,
@@ -15,17 +17,15 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         // validate: {
         //     validator: (value) =>{
-        //          return /[a-zA-Z0-9]+/.test(value)
+        //          return /^[a-zA-Z0-9]+$/.test(value)
         //     },
-        //     message: (props)=> {
-        //         console.log(props);
-        //         return 'Username should consist only English letters and digits!'
-        //     }
+        //     message: (props)=> `${props.value} is invalid username. Username should consist only English letters and digits!`
+        //     
         // }
         validate: {
             validator: function (v) {
                 // Check if the username contains only English letters and numbers
-                return /^[a-zA-Z0-9]+$/.test(v);
+                return ENGLISH_ALPHNUMERIC_PATTERN.test(v);
             },
             message: props => `${props.value} is not a valid username!`
 
@@ -35,6 +35,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+        minlength: 8,
+        validate: {
+            validator: function (v) {
+                // Check if the username contains only English letters and numbers
+                return ENGLISH_ALPHNUMERIC_PATTERN.test(v);
+            },
+            message: props => `Passsword should consist only English letters and digits!`
+        }
     }
 
 });

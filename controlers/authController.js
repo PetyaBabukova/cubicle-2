@@ -99,11 +99,11 @@ router.post(
 
         // console.log(req.body.email); //After sanitizing
         // console.log(req.body.username); //After sanitizing
-        let errors = validationResult(req); //Here we`ll put errors. this is an array of errrors
-        //console.log(errors);
-        if (errors.errors.length > 0) {
-            return res.render('register', errors);
-        }
+        // let errors = validationResult(req); //Here we`ll put errors. this is an array of errrors
+        // //console.log(errors);
+        // if (errors.errors.length > 0) {
+        //     return res.render('register', errors);
+        // }
 
         try {
 
@@ -116,10 +116,11 @@ router.post(
             let user = await authService.register({ username, password });
             res.redirect('/auth/login'); //We can put here user object, if we need it
 
-        } catch (error) {
+        } catch (err) {
             // We can do switch case for a different types errors
             // console.log(error.message);
             // console.log(error);
+            let error = Object.keys(err?.errors).map(x=>({message: err.errors[x].message}))[0];
             res.render('register', { error })
         };
 
